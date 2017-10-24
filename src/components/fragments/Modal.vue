@@ -6,10 +6,10 @@
         <p class="modal-card-title">
           <slot name="header"></slot>
         </p>
-        <button class="delete" aria-label="close"></button>
+        <a class="delete" aria-label="close" href="/"></a>
       </header>
       <section class="modal-card-body">
-        <content></content>
+        <slot></slot>
       </section>
       <footer class="modal-card-foot">
         <slot name="footer"></slot>

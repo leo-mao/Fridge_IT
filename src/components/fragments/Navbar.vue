@@ -60,7 +60,7 @@
 
 <style>
   .navbar {
-    background-color: #0000ee;
+    background-color: #3F51B5;
     margin-bottom: 1rem;
   }
 
@@ -78,7 +78,7 @@
   }
 
   .navbar-menu {
-    background-color: #0000ee;
+    background-color: #3F51B5;
   }
 
 </style>

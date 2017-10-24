@@ -1,3 +1,15 @@
 <template>
-  <h1 class="title">Home</h1>
+  <successmessage v-if="showSuccess">
+    Logged in successfully
+  </successmessage>
 </template>
+
+<script>
+  import Successmessage from './fragments/Success-message';
+
+  export default {
+    components: {
+      Successmessage,
+    },
+  };
+</script>
