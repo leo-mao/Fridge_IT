@@ -50,5 +50,17 @@
 </script>
 
 <style>
+  @media screen and (min-width: 1500px), print {
+    .field {
+      width: 50%;
+    }
+  }
 
+  @media screen and (max-width: 1499px), print {
+    .field {
+      width: 100%;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
 </style>

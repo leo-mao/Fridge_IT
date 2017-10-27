@@ -62,7 +62,7 @@
 <style>
   .navbar {
     background-color: #3F51B5;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
   }
 
   .navbar-item {

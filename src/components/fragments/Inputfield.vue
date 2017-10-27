@@ -3,7 +3,7 @@
     <label class="label">
       <slot name="title"></slot>
     </label>
-    <div class="control">
+    <div class="control has-icons-left">
       <slot></slot>
     </div>
   </div>
