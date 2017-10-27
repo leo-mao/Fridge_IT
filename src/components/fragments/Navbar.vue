@@ -2,9 +2,8 @@
   <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item">
-        <img src="img/fridge-it_logo.png"
-             alt="Fridge-IT"
-             width="112" height="28">
+        <img src="../../assets/logo.png"
+             alt="Fridge-IT">
       </a>
       <a class="navbar-burger" data-target="navMenu" @click="navbarMenuIsActive = !navbarMenuIsActive"
          :class="{ 'is-active' : navbarMenuIsActive }">
@@ -49,6 +48,8 @@
 </template>
 
 <script>
+  /* eslint-disable linebreak-style */
+
   export default {
     data() {
       return {

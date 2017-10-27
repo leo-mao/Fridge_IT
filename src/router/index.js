@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home';

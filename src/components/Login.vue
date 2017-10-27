@@ -33,6 +33,8 @@
 </template>
 
 <script>
+  /* eslint-disable linebreak-style */
+
   import Modal from './fragments/Modal';
   import Inputfield from './fragments/Inputfield';
   import Errormessage from './fragments/Error-message';
