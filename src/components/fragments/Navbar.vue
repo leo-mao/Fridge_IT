@@ -20,12 +20,12 @@
           <label>Home</label>
         </a>
         <span class="navbar-item is-hidden-mobile">
-          <label>Fridge online&nbsp;</label>
           <i class="fa fa-plug" aria-hidden="true"></i>
+          <label>&nbsp;Fridge online</label>
         </span>
         <span class="navbar-item is-hidden-mobile">
-          <span>8°C&nbsp;</span>
           <i class="fa fa-thermometer-quarter" aria-hidden="true"></i>
+          <span>&nbsp;8°C</span>
         </span>
         <a class="navbar-item" href="/slots">
           <span class="icon"><i class="fa fa-beer"></i></span>
