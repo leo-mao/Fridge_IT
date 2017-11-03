@@ -6,21 +6,17 @@
     <!-- error message if login failed -->
     <errormessage v-show="showError">
       <button class="delete" @click="showError = false"></button>
-      The username and password is required.
+      The hashcode is required.
     </errormessage>
 
-    <!-- username input -->
+    <!-- hashcode input -->
     <inputfield>
-      <template slot="title">Username</template>
-      <input type="text" class="input" tabindex="1" placeholder="Insert username"
-             v-model="username">
-    </inputfield>
-
-    <!-- password input -->
-    <inputfield>
-      <template slot="title">Password</template>
-      <input type="password" class="input" tabindex="2" placeholder="Insert password"
-             v-model="password" @keyup.enter="checkLogin()">
+      <template slot="title">Hashcode</template>
+      <input type="text" class="input" tabindex="1" placeholder="Insert hashcode"
+             v-model="hashcode">
+      <span class="icon is-small is-left">
+        <i class="fa fa-hashtag"></i>
+      </span>
     </inputfield>
 
     <!-- footer -->
@@ -47,14 +43,13 @@
     },
     data() {
       return {
-        username: '',
-        password: '',
+        hashcode: '',
         showError: false,
       };
     },
     methods: {
       checkLogin() {
-        if (this.username !== '' && this.password !== '') {
+        if (this.hashcode !== '') {
           this.showError = false;
           /* success handling TBD */
           this.$router.push('/settings');
