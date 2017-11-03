@@ -5,6 +5,7 @@ import Home from '@/components/Home';
 import Login from '@/components/Login';
 import Settings from '@/components/Settings';
 import Slots from '@/components/Slots';
+import Slot from '@/components/Slot';
 
 Vue.use(Router);
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/slots',
       name: 'Slots',
       component: Slots,
+    },
+    {
+      path: '/slot/:id',
+      name: 'Slot',
+      component: Slot,
     },
     {
       path: '*',
