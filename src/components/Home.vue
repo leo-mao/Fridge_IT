@@ -4,6 +4,9 @@
       Logged in successfully
     </successmessage>
     <hero>
+      <span class="icon">
+        <i class="fa fa-home"></i>
+      </span>
       Home
       <template slot="subtitle">Welcome to the Fridge-IT WebApp</template>
     </hero>

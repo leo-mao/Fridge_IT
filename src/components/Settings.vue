@@ -2,6 +2,9 @@
   <div>
     <!-- title -->
     <hero>
+      <span class="icon">
+        <i class="fa fa-gear"></i>
+      </span>
       Settings
       <template slot="subtitle">You can change the application settings here.</template>
     </hero>
@@ -16,28 +19,25 @@
             <option v-for="language in languages" :selected="language === currentLanguage">{{ language }}</option>
           </select>
         </div>
+        <span class="icon is-small is-left">
+          <i class="fa fa-language"></i>
+        </span>
       </inputfield>
 
       <!-- change password -->
-      <h1 class="form-title">Change password</h1>
+      <h1 class="form-title">Change display name</h1>
 
-      <!-- current password -->
+      <!-- display name -->
       <inputfield>
-        <template slot="title">Current password</template>
-        <input type="password" class="input" v-model="currentPassword">
+        <template slot="title">Display name</template>
+        <input type="text" class="input" v-model="displayName">
+        <span class="icon is-left is-small">
+          <i class="fa fa-user"></i>
+        </span>
       </inputfield>
 
-      <!-- new password -->
-      <inputfield>
-        <template slot="title">New password</template>
-        <input type="password" class="input" v-model="newPassword">
-      </inputfield>
-
-      <!-- confirm new password -->
-      <inputfield>
-        <template slot="title">Confirm new password</template>
-        <input type="password" class="input" v-model="newPasswordConfirm">
-      </inputfield>
+      <!-- save button -->
+      <button class="button" @click="">Save</button>
     </form>
   </div>
 </template>
@@ -56,9 +56,7 @@
       return {
         languages: ['English', 'German'],
         currentLanguage: 'English',
-        currentPassword: '',
-        newPassword: '',
-        newPasswordConfirm: '',
+        displayName: '',
       };
     },
   };
@@ -67,6 +65,10 @@
 <style>
   @media screen and (max-width: 1499px), print {
     .form-title {
+      margin-left: 0.8rem;
+    }
+
+    .button {
       margin-left: 0.8rem;
     }
   }

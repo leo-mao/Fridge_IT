@@ -15,6 +15,7 @@
       <!-- components -->
       <router-view></router-view>
     </div>
+    <footermobile></footermobile>
   </div>
 </template>
 
@@ -29,6 +30,7 @@
   import Navbar from './components/fragments/Navbar';
   import Errormessage from './components/fragments/Error-message';
   import Successmessage from './components/fragments/Success-message';
+  import Footermobile from './components/fragments/Footermobile';
 
   // scripts
   // import './scripts/burger-toggle';
@@ -39,6 +41,7 @@
       Navbar,
       Errormessage,
       Successmessage,
+      Footermobile,
     },
     data() {
       return {
@@ -62,5 +65,11 @@
       padding-left: 1rem;
       padding-right: 1rem;
     }
+  }
+
+  .button {
+    background-color: #0000ee;
+    color: white;
+    border-color: #0000ee
   }
 </style>
