@@ -6,7 +6,7 @@
       </span>
     Slots
     <!--<template slot="subtitle">Here you can see the bottle slots.</template>-->
-    <div id="slots-group" class="columns is-multiline"></div>
+    <div id="slots-group" class="columns is-multiline is-mobile"></div>
 
   </hero>
 </template>
