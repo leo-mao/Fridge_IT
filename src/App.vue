@@ -3,15 +3,6 @@
     <navbar></navbar>
 
     <div class="container">
-      <!-- error messages -->
-      <errormessage v-for="errorMessage in errorMessages">
-        {{ errorMessage }}
-      </errormessage>
-
-      <successmessage v-for="successMessage in successMessages">
-        {{ successMessage }}
-      </successmessage>
-
       <!-- components -->
       <router-view></router-view>
     </div>
@@ -28,8 +19,6 @@
 
   // fragments
   import Navbar from './components/fragments/Navbar';
-  import Errormessage from './components/fragments/Error-message';
-  import Successmessage from './components/fragments/Success-message';
   import Footermobile from './components/fragments/Footermobile';
 
   // scripts
@@ -39,15 +28,7 @@
     name: 'app',
     components: {
       Navbar,
-      Errormessage,
-      Successmessage,
       Footermobile,
-    },
-    data() {
-      return {
-        errorMessages: [],
-        successMessages: [],
-      };
     },
   };
 </script>
