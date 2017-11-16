@@ -1,4 +1,3 @@
-
 'use strict'
 // Template version: 1.1.3
 // see http://vuejs-templates.github.io/webpack for documentation.
@@ -29,6 +28,10 @@ module.exports = {
     env: require('./dev.env'),
     port: process.env.PORT || 8080,
     autoOpenBrowser: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": "true"
+    },
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {},
@@ -37,6 +40,6 @@ module.exports = {
     // (https://github.com/webpack/css-loader#sourcemaps)
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
-    cssSourceMap: false
+    cssSourceMap: false,
   }
-}
+};
