@@ -19,14 +19,6 @@
           <span class="icon"><i class="fa fa-home"></i></span>
           <label>Home</label>
         </router-link>
-        <span class="navbar-item is-hidden-mobile">
-          <i class="fa fa-plug" aria-hidden="true"></i>
-          <label>&nbsp;Fridge online</label>
-        </span>
-        <span class="navbar-item is-hidden-mobile">
-          <i class="fa fa-thermometer-quarter" aria-hidden="true"></i>
-          <span>&nbsp;8°C</span>
-        </span>
         <router-link :to="{name: 'Slots'}"  class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-beer"></i></span>
           Slots
@@ -34,7 +26,7 @@
       </div>
 
       <div class="navbar-end">
-        <router-link :to="{name: 'Settings'}"  class="navbar-item" href="/settings" v-on:click.native="navbarMenuIsActive = false">
+        <router-link :to="{name: 'Settings'}"  class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-gear"></i></span>
           Settings
         </router-link>
@@ -42,6 +34,14 @@
           <span class="icon"><i class="fa fa-user"></i></span>
           Login
         </router-link>
+        <span class="navbar-item is-hidden-mobile no-item">
+          <i class="fa fa-plug" aria-hidden="true"></i>
+          <label>&nbsp;Fridge online</label>
+        </span>
+        <span class="navbar-item is-hidden-mobile no-item">
+          <i class="fa fa-thermometer-quarter" aria-hidden="true"></i>
+          <span>&nbsp;8°C</span>
+        </span>
       </div>
     </div>
   </nav>
@@ -82,4 +82,7 @@
     background-color: #3F51B5;
   }
 
+  .no-item {
+    color: #bbbbbb;
+  }
 </style>

@@ -17,11 +17,15 @@
         </tr>
         <tr>
           <td>Row:</td>
-          <td>1</td>
+          <td>{{ slot.slotRow }}</td>
         </tr>
         <tr>
           <td>Column:</td>
-          <td>1</td>
+          <td>{{ slot.slotColumn }}</td>
+        </tr>
+        <tr>
+          <td>Added:</td>
+          <td>{{ timeIn }}</td>
         </tr>
       </table>
     </div>
@@ -32,7 +36,11 @@
 
 <script>
   /* eslint-disable no-new,new-parens,import/no-duplicates */
+  /* eslint-disable no-console */
+  /* eslint-disable prefer-template */
+  /* eslint-disable no-return-assign  */
 
+  import axios from 'axios';
   import Hero from './fragments/Hero';
   import Linechart from './fragments/Linechart';
 
@@ -41,8 +49,41 @@
       Hero,
       Linechart,
     },
+    // Fetches posts when the component is created.
+    created() {
+      // url for the slot
+      let url = 'http://oslab1.hs-el.de:2080/slot/' + this.$route.params.id + '/';
+
+      // get request
+      axios.get(url).then(response => this.slot = response.data)
+      .catch((e) => {
+        console.log(e);
+      });
+
+      // url for the temperatures
+      url = 'http://oslab1.hs-el.de:2080/bottle/' + this.slot.currentBottle.id + '/temperature/';
+      console.log(url);
+      // get request
+      axios.get(url).then((response) => {
+        this.bottle = response.data;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    },
     data() {
       return {
+        slot: {
+          slotRow: -1,
+          slotColumn: -1,
+          currentBottle: {
+            id: -1,
+          },
+        },
+        bottle: {
+          timestamp: -1,
+          temperature: -1,
+        },
         chartData: {
           labels: ['10 o`clock', '11 o`clock', '12 o`clock', '13 o`clock', '14 o`clock', '15 o`clock', '16 o`clock'],
           datasets: [
@@ -64,6 +105,13 @@
           },
         },
       };
+    },
+    computed: {
+      timeIn() {
+        const date = new Date(this.slot.currentBottle.timeIn);
+        const time = date.getDay() + '.' + date.getMonth() + '.' + date.getFullYear() + ' - ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        return time;
+      },
     },
   };
 </script>
