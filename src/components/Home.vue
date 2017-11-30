@@ -32,7 +32,7 @@
     },
     // Fetches posts when the component is created.
     created() {
-      axios.get('http://oslab1.hs-el.de:2080/ping', {
+      axios.get('http://oslab1.hs-el.de:2080/slot/', {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': [
