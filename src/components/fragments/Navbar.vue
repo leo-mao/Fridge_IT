@@ -36,11 +36,11 @@
         </router-link>
         <span class="navbar-item is-hidden-mobile no-item">
           <i class="fa fa-plug" aria-hidden="true"></i>
-          <label>&nbsp;Fridge online</label>
+          <label>&nbsp;Fridge {{ fridgeStatus }}</label>
         </span>
         <span class="navbar-item is-hidden-mobile no-item">
           <i class="fa fa-thermometer-quarter" aria-hidden="true"></i>
-          <span>&nbsp;8°C</span>
+          <span>&nbsp;{{ frigeTemperature }}°C</span>
         </span>
       </div>
     </div>
@@ -49,6 +49,7 @@
 
 <script>
   export default {
+    props: ['frigeTemperature', 'fridgeStatus'],
     data() {
       return {
         navbarMenuIsActive: false,

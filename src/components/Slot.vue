@@ -50,7 +50,6 @@
     },
     // Fetches posts when the component is created.
     created() {
-      // url for the slot
       const SLOT_URL = 'http://oslab1.hs-el.de:2080/slot/' + this.$route.params.id + '/';
 
       // slot request

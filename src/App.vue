@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <navbar></navbar>
+    <navbar :frigeTemperature="frigeTemperature" :fridgeStatus="fridgeStatus"></navbar>
 
     <div class="container">
       <!-- components -->
       <router-view></router-view>
     </div>
-    <footermobile></footermobile>
+    <footermobile :frigeTemperature="frigeTemperature" :fridgeStatus="fridgeStatus"></footermobile>
   </div>
 </template>
 
 <script>
+  import axios from 'axios';
+
   // styles
   import '../node_modules/bulma/css/bulma.css';
   import '../node_modules/font-awesome/css/font-awesome.css';
@@ -19,14 +21,26 @@
   import Navbar from './components/fragments/Navbar';
   import Footermobile from './components/fragments/Footermobile';
 
-  // scripts
-  // import './scripts/burger-toggle';
-
   export default {
     name: 'app',
     components: {
       Navbar,
       Footermobile,
+    },
+    created() {
+      const FRIDGE_STATUS_URL = 'http://oslab1.hs-el.de:2080/fridge/status/';
+
+      // fridge status request
+      axios.get(FRIDGE_STATUS_URL).then((fridgeStatusResponse) => {
+        this.frigeTemperature = fridgeStatusResponse.data.targetTemperature;
+        this.fridgeStatus = 'online';
+      });
+    },
+    data() {
+      return {
+        frigeTemperature: null,
+        fridgeStatus: 'offline',
+      };
     },
   };
 </script>
