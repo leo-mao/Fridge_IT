@@ -43,7 +43,6 @@
 </template>
 
 <script>
-  /* eslint-disable linebreak-style */
   import Hero from './fragments/Hero';
   import Inputfield from './fragments/Inputfield';
 

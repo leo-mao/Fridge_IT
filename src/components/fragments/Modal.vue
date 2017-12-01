@@ -19,7 +19,5 @@
 </template>
 
 <script>
-  /* eslint-disable linebreak-style */
-
   export default {};
 </script>
