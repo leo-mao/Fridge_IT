@@ -29,8 +29,7 @@
         </tr>
       </table>
     </div>
-
-    <linechart :data="chartData" :options="chartOptions" :width="500" :height="200"></linechart>
+    <linechart :chart-data="chartData" :height="200"></linechart>
   </div>
 </template>
 
@@ -52,20 +51,48 @@
     // Fetches posts when the component is created.
     created() {
       // url for the slot
-      let url = 'http://oslab1.hs-el.de:2080/slot/' + this.$route.params.id + '/';
+      const SLOT_URL = 'http://oslab1.hs-el.de:2080/slot/' + this.$route.params.id + '/';
 
-      // get request
-      axios.get(url).then(response => this.slot = response.data)
-      .catch((e) => {
-        console.log(e);
-      });
+      // slot request
+      axios.get(SLOT_URL).then((slotResponse) => {
+        // assign the slot informations to the vue data
+        this.slot = slotResponse.data;
 
-      // url for the temperatures
-      url = 'http://oslab1.hs-el.de:2080/bottle/' + this.slot.currentBottle.id + '/temperature/';
-      console.log(url);
-      // get request
-      axios.get(url).then((response) => {
-        this.bottle = response.data;
+        // generate the url for the current bottleslotResponse.data.currentBottle.id
+        const BOTTLE_URL = 'http://oslab1.hs-el.de:2080/bottle/' + slotResponse.data.currentBottle.id + '/temperature/?start=-70&end=0';
+        console.log(BOTTLE_URL);
+
+        // bottle request
+        axios.get(BOTTLE_URL).then((bottleResponse) => {
+          // iterate through the temperature array
+          const labelArray = [];
+          const dataArray = [];
+          for (let i = 0; i < bottleResponse.data.length; i += 1) {
+            const date = new Date(bottleResponse.data[i].timestamp);
+            if (date.getHours() % 10 === 0) {
+              labelArray.push(('00' + date.getHours()).slice(-2) + ':' + ('00' + date.getMinutes()).slice(-2));
+              dataArray.push(bottleResponse.data[i].temperature);
+            }
+          }
+
+          // fill the chart data
+          this.chartData = {
+            labels: labelArray,
+            datasets: [
+              {
+                label: 'Slot temperature in °C',
+                data: dataArray,
+                borderColor: '#3F51B5',
+                backgroundColor: 'transparent',
+                borderWidth: 3,
+                borderJoinStyle: 'miter',
+              },
+            ],
+          };
+        })
+        .catch((e) => {
+          console.log(e);
+        });
       })
       .catch((e) => {
         console.log(e);
@@ -80,40 +107,32 @@
             id: -1,
           },
         },
-        bottle: {
-          timestamp: -1,
-          temperature: -1,
-        },
-        chartData: {
-          labels: ['10 o`clock', '11 o`clock', '12 o`clock', '13 o`clock', '14 o`clock', '15 o`clock', '16 o`clock'],
-          datasets: [
-            {
-              label: 'Slot temperature of the last seven hours',
-              data: [20, 18, 17, 10, 7, 8, 8],
-              borderColor: 'blue',
-              backgroundColor: 'transparent',
-            },
-          ],
-        },
-        chartOptions: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false,
-              },
-            }],
-          },
-        },
+        chartData: null,
       };
     },
     computed: {
       timeIn() {
         const date = new Date(this.slot.currentBottle.timeIn);
-        const time = date.getDay() + '.' + date.getMonth() + '.' + date.getFullYear() + ' - ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        const time = ('00' + date.getDay()).slice(-2) + '.' + ('00' + date.getMonth()).slice(-2) + '.' + date.getFullYear() + ' - ' + ('00' + date.getHours()).slice(-2) + ':' + ('00' + date.getMinutes()).slice(-2) + ':' + ('00' + date.getSeconds()).slice(-2);
         return time;
       },
     },
   };
+  /*
+  chartData() {
+        return {
+          labels: [],
+          datasets: [
+            {
+              label: 'Slot temperature of the last seven hours',
+              data: [],
+              borderColor: 'blue',
+              backgroundColor: 'transparent',
+            },
+          ],
+        };
+      },
+  */
 </script>
 
 <style>
