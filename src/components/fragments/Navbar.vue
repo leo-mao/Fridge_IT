@@ -48,8 +48,6 @@
 </template>
 
 <script>
-  /* eslint-disable linebreak-style */
-
   export default {
     data() {
       return {
