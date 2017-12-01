@@ -5,19 +5,15 @@
         <i class="fa fa-beer"></i>
       </span>
     Slots
-    <!--<template slot="subtitle">Here you can see the bottle slots.</template>-->
     <div id="slots-group" class="columns is-multiline is-mobile"></div>
-
   </hero>
 </template>
 
 <style>
-
   #slots-group {
     position: relative;
     top: 2rem;
   }
-
 </style>
 
 <script>
@@ -25,21 +21,17 @@
   import Hero from './fragments/Hero';
 
   function drawCanvas(canvas, temp, filled, size, text) {
-//    const colorPrimary = '#3d8dc6';
-//    const colorPrimaryDark = '#2f6d99';
-//    const colorAccent = '#ff7040';
-    const colorText = '#0e0e0e';
 //    const colorDisabled = '#a6a6a6';
     const colorEmpty = 'b9b9b9';
     const colorEmptyBorder = '#878787';
-    const colorVeryWarm = '#fd4d79';
-    const colorVeryWarmBorder = '#c42c52';
+    const colorVeryWarm = '#ff7b6a';
+    const colorVeryWarmBorder = '#f13f32';
 //    const colorMediumWarm = '#ff976a';
 //    const colorMediumWarmBorder = '#f17532';
-//    const colorMediumCold = '#6fc4ff';
-//    const colorMediumColdBorder = '#4699d4';
-    const colorVeryCold = '#3d8dc6';
-    const colorVeryColdBorder = '#2f6d99';
+//    const colorMediumCold = '#6fcfff';
+//    const colorMediumColdBorder = '#46a2d4';
+    const colorVeryCold = '#6fb9ff';
+    const colorVeryColdBorder = '#468fd4';
 
     const length = size;
     const lineWidth = 0.1 * length;
@@ -67,36 +59,34 @@
     ctx.arc(length / 2, length / 2, radius, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.fill();
-    ctx.font = '30px Comic Sans MS';
-    ctx.textAlign = 'center';
-    ctx.fillStyle = colorText;
-    ctx.fillText(text, canvas.width / 2, canvas.height / 2);
     // eslint-disable-next-line
     console.log('text:', text);
   }
 
   // eslint-disable-next-line
-  function drawSlot(slotNr, temp, filled, size, text) {
+  function putSlot(slotNr, temp, filled, size, text) {
     // eslint-disable-next-line
     const canvas = document.getElementById('slot-' + slotNr);
     return drawCanvas(canvas, temp, filled, size, text);
   }
 
   function redrawSlot(slotNr, temp, filled, size, text) {
-    drawSlot(slotNr, temp, filled, size, text);
+    putSlot(slotNr, temp, filled, size, text);
   }
 
   function initialAllSlots(slotAmount, size) {
     const div = document.getElementById('slots-group');
+    const TAG = 'slot';
+    const DASH = '-';
+    const slash = '/';
     for (let slotID = 0; slotID < slotAmount; slotID += 1) {
       const column = document.createElement('div');
       column.setAttribute('class', 'column is-one-quarter');
       const href = document.createElement('a');
-      // eslint-disable-next-line
-      href.setAttribute('href', '/slot/' + slotID);
+      href.setAttribute('href', TAG + slash + slotID);
       const canvas = document.createElement('canvas');
-      // eslint-disable-next-line
-      canvas.setAttribute('id', 'slot-' + slotID);
+      canvas.setAttribute('id', TAG + DASH + slotID);
+      canvas.setAttribute('ref', TAG + DASH + slotID);
       href.appendChild(canvas);
       drawCanvas(canvas, slotID % 8, true, size, slotID);
       column.appendChild(href);
@@ -117,8 +107,9 @@
     methods: {
       handleWindowResize(event) {
         this.windowWidth = event.currentTarget.innerWidth;
+        const canvasSize = this.windowWidth / 5 > 173.2 ? 173.2 : this.windowWidth / 5;
         for (let slotID = 0; slotID < this.amount; slotID += 1) {
-          redrawSlot(slotID, slotID % 8, true, this.windowWidth / 5, slotID);
+          redrawSlot(slotID, slotID % 8, true, canvasSize, slotID);
         }
       },
     },
@@ -127,7 +118,8 @@
     },
     // eslint-disable-next-line
     mounted() {
-      initialAllSlots(this.amount, this.windowWidth / 5);
+      const canvasSize = this.windowWidth / 5 > 173.2 ? 173.2 : this.windowWidth / 5;
+      initialAllSlots(this.amount, canvasSize);
       window.addEventListener('resize', this.handleWindowResize);
     },
   };
