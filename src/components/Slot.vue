@@ -6,30 +6,40 @@
       <i class="fa fa-beer"></i>
     </span>
       Slot {{ $route.params.id }}
-      <template slot="subtitle">You can change the application settings here.</template>
+      <template slot="subtitle">Here you can see detailed informations about the slot {{ $route.params.id }}</template>
     </hero>
 
-    <div class="is-bold">
-      <table class="table" width="100%">
-        <tr>
-          <td>Current temperature:</td>
-          <td>8°C</td>
-        </tr>
-        <tr>
-          <td>Row:</td>
-          <td>{{ slot.slotRow }}</td>
-        </tr>
-        <tr>
-          <td>Column:</td>
-          <td>{{ slot.slotColumn }}</td>
-        </tr>
-        <tr>
-          <td>Added:</td>
-          <td>{{ timeIn }}</td>
-        </tr>
-      </table>
+    <div v-if="showError">
+      <errormessage>
+        Error while loading informations about slot {{ $route.params.id }}. There is no slot with this id.
+        <router-link :to="{name: 'Slots'}">
+          Return to slots
+        </router-link>
+      </errormessage>
     </div>
-    <linechart :chart-data="chartData" :height="200"></linechart>
+    <div v-else>
+      <div class="is-bold">
+        <table class="table" width="100%">
+          <tr>
+            <td>Current temperature:</td>
+            <td>8°C</td>
+          </tr>
+          <tr>
+            <td>Row:</td>
+            <td>{{ slot.slotRow }}</td>
+          </tr>
+          <tr>
+            <td>Column:</td>
+            <td>{{ slot.slotColumn }}</td>
+          </tr>
+          <tr>
+            <td>Added:</td>
+            <td>{{ timeIn }}</td>
+          </tr>
+        </table>
+      </div>
+      <linechart :chart-data="chartData" :width="500" :height="200"></linechart>
+    </div>
   </div>
 </template>
 
@@ -42,24 +52,21 @@
   import axios from 'axios';
   import Hero from './fragments/Hero';
   import Linechart from './fragments/Linechart';
+  import Errormessage from './fragments/Error-message';
 
   export default {
     components: {
       Hero,
       Linechart,
+      Errormessage,
     },
-    // Fetches posts when the component is created.
     created() {
       const SLOT_URL = 'http://oslab1.hs-el.de:2080/slot/' + this.$route.params.id + '/';
 
       // slot request
       axios.get(SLOT_URL).then((slotResponse) => {
-        // assign the slot informations to the vue data
         this.slot = slotResponse.data;
-
-        // generate the url for the current bottleslotResponse.data.currentBottle.id
         const BOTTLE_URL = 'http://oslab1.hs-el.de:2080/bottle/' + slotResponse.data.currentBottle.id + '/temperature/?start=-70&end=0';
-        console.log(BOTTLE_URL);
 
         // bottle request
         axios.get(BOTTLE_URL).then((bottleResponse) => {
@@ -89,12 +96,12 @@
             ],
           };
         })
-        .catch((e) => {
-          console.log(e);
+        .catch(() => {
+          this.showError = true;
         });
       })
-      .catch((e) => {
-        console.log(e);
+      .catch(() => {
+        this.showError = true;
       });
     },
     data() {
@@ -107,6 +114,7 @@
           },
         },
         chartData: null,
+        showError: false,
       };
     },
     computed: {
@@ -117,21 +125,6 @@
       },
     },
   };
-  /*
-  chartData() {
-        return {
-          labels: [],
-          datasets: [
-            {
-              label: 'Slot temperature of the last seven hours',
-              data: [],
-              borderColor: 'blue',
-              backgroundColor: 'transparent',
-            },
-          ],
-        };
-      },
-  */
 </script>
 
 <style>
