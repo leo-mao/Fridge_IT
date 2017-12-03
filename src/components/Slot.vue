@@ -22,7 +22,7 @@
         <table class="table" width="100%">
           <tr>
             <td>Current temperature:</td>
-            <td>8°C</td>
+            <td>{{ slotTemp }}°C</td>
           </tr>
           <tr>
             <td>Row:</td>
@@ -77,7 +77,7 @@
             const date = new Date(bottleResponse.data[i].timestamp);
             if (date.getHours() % 10 === 0) {
               labelArray.push(('00' + date.getHours()).slice(-2) + ':' + ('00' + date.getMinutes()).slice(-2));
-              dataArray.push(bottleResponse.data[i].temperature);
+              dataArray.push(Math.round(bottleResponse.data[i].temperature * 100) / 100);
             }
           }
 
@@ -95,6 +95,9 @@
               },
             ],
           };
+
+          // add actual temperature to data
+          this.slotTemp = Math.round(dataArray[dataArray.length - 1] * 100) / 100;
         })
         .catch(() => {
           this.showError = true;
@@ -115,6 +118,7 @@
         },
         chartData: null,
         showError: false,
+        slotTemp: -1,
       };
     },
     computed: {
