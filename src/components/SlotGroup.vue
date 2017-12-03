@@ -48,35 +48,35 @@
     },
     data() {
       return {
-        colorDisabled: '#a6a6a6',
-        colorEmpty: 'b9b9b9',
-        colorEmptyBorder: '#878787',
-        colorVeryWarm: '#ff7b6a',
-        colorVeryWarmBorder: '#f13f32',
-        colorMediumWarm: '#ff976a',
-        colorMediumWarmBorder: '#f17532',
-        colorMediumCold: '#6fcfff',
-        colorMediumColdBorder: '#46a2d4',
-        colorVeryCold: '#6fb9ff',
-        colorVeryColdBorder: '#468fd4',
         slots: [],
       };
     },
     methods: {
       resolveColor(status) {
+        const colorDisabled = '#a6a6a6';
+        const colorEmpty = 'b9b9b9';
+        const colorEmptyBorder = '#878787';
+        const colorVeryWarm = '#ff7b6a';
+        const colorVeryWarmBorder = '#f13f32';
+        const colorMediumWarm = '#ff976a';
+        const colorMediumWarmBorder = '#f17532';
+        const colorMediumCold = '#6fcfff';
+        const colorMediumColdBorder = '#46a2d4';
+        const colorVeryCold = '#6fb9ff';
+        const colorVeryColdBorder = '#468fd4';
         switch (status) {
           case 0:// cold
-            return { color: this.colorVeryCold, colorBorder: this.colorVeryColdBorder };
+            return { color: colorVeryCold, colorBorder: colorVeryColdBorder };
           case 1:// medium_cold
-            return { color: this.colorMediumCold, colorBorder: this.colorMediumColdBorder };
+            return { color: colorMediumCold, colorBorder: colorMediumColdBorder };
           case 2:// medium_warm
-            return { color: this.colorMediumWarm, colorBorder: this.colorMediumWarmBorder };
+            return { color: colorMediumWarm, colorBorder: colorMediumWarmBorder };
           case 3:// warm
-            return { color: this.colorVeryWarm, colorBorder: this.colorVeryWarmBorder };
+            return { color: colorVeryWarm, colorBorder: colorVeryWarmBorder };
           case 4:// empty
-            return { color: this.colorEmpty, colorBorder: this.colorEmptyBorder };
+            return { color: colorEmpty, colorBorder: colorEmptyBorder };
           default:// disabled
-            return { color: this.colorDisabled, colorBorder: this.colorDisabled };
+            return { color: colorDisabled, colorBorder: colorDisabled };
         }
       },
       reservedCheck(reservedBy, reservedCheck) {
