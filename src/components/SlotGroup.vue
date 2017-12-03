@@ -17,9 +17,6 @@
         ></SlotCanvas>
       </div>
     </hero>
-    <div style="display:none;">
-      <img id="lock" src="../../static/lock.png">
-    </div>
   </div>
 </template>
 
@@ -51,39 +48,42 @@
     },
     data() {
       return {
+        colorDisabled: '#a6a6a6',
+        colorEmpty: 'b9b9b9',
+        colorEmptyBorder: '#878787',
+        colorVeryWarm: '#ff7b6a',
+        colorVeryWarmBorder: '#f13f32',
+        colorMediumWarm: '#ff976a',
+        colorMediumWarmBorder: '#f17532',
+        colorMediumCold: '#6fcfff',
+        colorMediumColdBorder: '#46a2d4',
+        colorVeryCold: '#6fb9ff',
+        colorVeryColdBorder: '#468fd4',
         slots: [],
       };
     },
     methods: {
       resolveColor(status) {
-        const colorDisabled = '#a6a6a6';
-        const colorEmpty = 'b9b9b9';
-        const colorEmptyBorder = '#878787';
-        const colorVeryWarm = '#ff7b6a';
-        const colorVeryWarmBorder = '#f13f32';
-        const colorMediumWarm = '#ff976a';
-        const colorMediumWarmBorder = '#f17532';
-        const colorMediumCold = '#6fcfff';
-        const colorMediumColdBorder = '#46a2d4';
-        const colorVeryCold = '#6fb9ff';
-        const colorVeryColdBorder = '#468fd4';
         switch (status) {
           case 0:// cold
-            return { color: colorVeryCold, colorBorder: colorVeryColdBorder };
+            return { color: this.colorVeryCold, colorBorder: this.colorVeryColdBorder };
           case 1:// medium_cold
-            return { color: colorMediumCold, colorBorder: colorMediumColdBorder };
+            return { color: this.colorMediumCold, colorBorder: this.colorMediumColdBorder };
           case 2:// medium_warm
-            return { color: colorMediumWarm, colorBorder: colorMediumWarmBorder };
+            return { color: this.colorMediumWarm, colorBorder: this.colorMediumWarmBorder };
           case 3:// warm
-            return { color: colorVeryWarm, colorBorder: colorVeryWarmBorder };
+            return { color: this.colorVeryWarm, colorBorder: this.colorVeryWarmBorder };
           case 4:// empty
-            return { color: colorEmpty, colorBorder: colorEmptyBorder };
+            return { color: this.colorEmpty, colorBorder: this.colorEmptyBorder };
           default:// disabled
-            return { color: colorDisabled, colorBorder: colorDisabled };
+            return { color: this.colorDisabled, colorBorder: this.colorDisabled };
         }
       },
       reservedCheck(reservedBy, reservedCheck) {
-        return !((reservedBy === null) && (reservedCheck === null));
+        if ((reservedBy === null) && (reservedCheck === null)) {
+          return false;
+        }
+        return true;
       },
     },
   };
