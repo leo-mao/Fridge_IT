@@ -1,35 +1,31 @@
 <template>
   <div class="column is-one-quarter">
-    <slot name="router"></slot>
-    <canvas v-bind:width="canvasSize" v-bind:height="canvasSize"
-            v-draw-canvas="{color: colorVeryCold, colorBorder: colorVeryColdBorder}">
+    <router-link :to="{ name: 'Slot', params: { id: slotID }}">
+      <canvas v-bind:width="canvasSize"
+              v-bind:height="canvasSize"
+              v-draw-canvas="{
+              color: color,
+              colorBorder: colorBorder,
+              isReserved: isReserved,
+              byWhomReserved: byWhomReserved
+            }">
     </canvas>
+    </router-link>
   </div>
 </template>
 
 <script>
   export default {
-    props: ['slotID', 'tempStatus'],
+    props: ['slotID', 'color', 'colorBorder', 'isReserved', 'byWhomReserved'],
     data() {
       return {
         canvasSize: window.innerWidth / 5 > 173.2 ? 173.2 : window.innerWidth / 5,
-        colorDisabled: '#a6a6a6',
-        colorEmpty: 'b9b9b9',
-        colorEmptyBorder: '#878787',
-        colorVeryWarm: '#ff7b6a',
-        colorVeryWarmBorder: '#f13f32',
-        colorMediumWarm: '#ff976a',
-        colorMediumWarmBorder: '#f17532',
-        colorMediumCold: '#6fcfff',
-        colorMediumColdBorder: '#46a2d4',
-        colorVeryCold: '#6fb9ff',
-        colorVeryColdBorder: '#468fd4',
       };
     },
     directives: {
       drawCanvas(canvasElement, binding) {
         // eslint-disable-next-line
-        console.log('binding value:' + canvasElement.width);
+        console.log('binding value:' + binding.value.isReserved);
         const size = canvasElement.width;
         const borderWidth = size * 0.1;
         const radius = (size / 2) - borderWidth;
@@ -42,13 +38,19 @@
         ctx.arc(size / 2, size / 2, radius, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.fill();
+        // draw lock
+        if (binding.value.isReserved) {
+          const lock = document.getElementById('lock');
+          const lockSize = size / 2;
+          const lockPadding = size / 4;
+          ctx.drawImage(lock, lockPadding, lockPadding, lockSize, lockSize);
+        }
       },
     },
     methods: {
       resizeHandler() {
         this.canvasSize = window.innerWidth / 5 > 173.2 ? 173.2 : window.innerWidth / 5;
       },
-
     },
     mounted() {
       window.addEventListener('resize', this.resizeHandler);
