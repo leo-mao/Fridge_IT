@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item">
+      <a class="no-hover navbar-item">
         <img src="../../assets/logo.png"
              alt="Fridge-IT">
       </a>
@@ -83,5 +83,9 @@
 
   .no-item {
     color: #bbbbbb;
+  }
+
+  .no-hover {
+    pointer-events:none;    
   }
 </style>
