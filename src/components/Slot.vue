@@ -38,7 +38,12 @@
           </tr>
         </table>
       </div>
-      <linechart :chart-data="chartData" :width="500" :height="200"></linechart>
+      <div v-if="loaded">
+        <linechart :chart-data="chartData" :width="500" :height="200"></linechart>
+      </div>
+      <div v-else align="center">
+        Loading...
+      </div>
     </div>
   </div>
 </template>
@@ -98,6 +103,7 @@
 
           // add actual temperature to data
           this.slotTemp = Math.round(dataArray[dataArray.length - 1] * 100) / 100;
+          this.loaded = true;
         })
         .catch(() => {
           this.showError = true;
@@ -110,15 +116,16 @@
     data() {
       return {
         slot: {
-          slotRow: -1,
-          slotColumn: -1,
+          slotRow: 'Loading...',
+          slotColumn: 'Loading...',
+          slotTemp: 'Loading...',
           currentBottle: {
             id: -1,
           },
         },
         chartData: null,
         showError: false,
-        slotTemp: -1,
+        loaded: false,
       };
     },
     computed: {
