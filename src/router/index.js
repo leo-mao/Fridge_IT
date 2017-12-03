@@ -7,6 +7,7 @@ import Settings from '@/components/Settings';
 import Slots from '@/components/Slots';
 import SlotCanvas from '@/components/fragments/SlotCanvas';
 import SlotGroup from '@/components/SlotGroup';
+import Slot from '@/components/Slot';
 
 Vue.use(Router);
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/group',
       name: 'SlotGroup',
       component: SlotGroup,
+    },
+    {
+      path: '/slot/:id',
+      name: 'Slot',
+      component: Slot,
     },
     {
       path: '*',

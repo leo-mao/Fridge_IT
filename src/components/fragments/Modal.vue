@@ -6,7 +6,7 @@
         <p class="modal-card-title">
           <slot name="header"></slot>
         </p>
-        <a class="delete" aria-label="close" href="/"></a>
+        <router-link :to="{name: 'Home'}"  class="delete" aria-label="close"></router-link>
       </header>
       <section class="modal-card-body">
         <slot></slot>
@@ -19,7 +19,5 @@
 </template>
 
 <script>
-  /* eslint-disable linebreak-style */
-
   export default {};
 </script>

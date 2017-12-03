@@ -15,42 +15,41 @@
     <div class="navbar-menu" id="navMenu" :class="{ 'is-active' : navbarMenuIsActive }">
       <!-- hidden on mobile -->
       <div class="navbar-start">
-        <a class="navbar-item" href="/">
+        <router-link :to="{name: 'Home'}" class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-home"></i></span>
           <label>Home</label>
-        </a>
-        <span class="navbar-item is-hidden-mobile">
-          <i class="fa fa-plug" aria-hidden="true"></i>
-          <label>&nbsp;Fridge online</label>
-        </span>
-        <span class="navbar-item is-hidden-mobile">
-          <i class="fa fa-thermometer-quarter" aria-hidden="true"></i>
-          <span>&nbsp;8°C</span>
-        </span>
-        <a class="navbar-item" href="/slots">
+        </router-link>
+        <router-link :to="{name: 'Slots'}"  class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-beer"></i></span>
           Slots
-        </a>
+        </router-link>
       </div>
 
       <div class="navbar-end">
-        <a class="navbar-item" href="/settings">
+        <router-link :to="{name: 'Settings'}"  class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-gear"></i></span>
           Settings
-        </a>
-        <a class="navbar-item" href="/login">
+        </router-link>
+        <router-link :to="{name: 'Login'}"  class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-user"></i></span>
           Login
-        </a>
+        </router-link>
+        <span class="navbar-item is-hidden-mobile no-item">
+          <i class="fa fa-plug" aria-hidden="true"></i>
+          <label>&nbsp;Fridge {{ fridgeStatus }}</label>
+        </span>
+        <span class="navbar-item is-hidden-mobile no-item">
+          <i class="fa fa-thermometer-quarter" aria-hidden="true"></i>
+          <span>&nbsp;{{ frigeTemperature }}°C</span>
+        </span>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
-  /* eslint-disable linebreak-style */
-
   export default {
+    props: ['frigeTemperature', 'fridgeStatus'],
     data() {
       return {
         navbarMenuIsActive: false,
@@ -82,4 +81,7 @@
     background-color: #3F51B5;
   }
 
+  .no-item {
+    color: #bbbbbb;
+  }
 </style>
