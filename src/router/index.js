@@ -39,11 +39,6 @@ export default new Router({
       component: SlotCanvas,
     },
     {
-      path: '/group',
-      name: 'SlotGroup',
-      component: SlotGroup,
-    },
-    {
       path: '/slot/:id',
       name: 'Slot',
       component: Slot,
