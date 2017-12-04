@@ -4,8 +4,8 @@
       <span class="icon">
         <i class="fa fa-home"></i>
       </span>
-      Home
-      <template slot="subtitle">Welcome to the Fridge-IT WebApp</template>
+			<label v-lang.home_hero></label>
+      <template slot="subtitle"><label v-lang.home_sub_hero></label></template>
     </hero>
     <div v-if="showError">
       <errormessage>
@@ -48,7 +48,7 @@
         // console.log(fridgeResponse.data);
         const labelArray = [];
         const dataArray = [];
-        for (let i = 0; i < fridgeResponse.data.length; i += 1) {
+        for (let i = fridgeResponse.data.length - 1; i >= 0; i -= 1) {
           const date = new Date(fridgeResponse.data[i].timestamp);
           if (date.getHours() % 10 === 0) {
             labelArray.push(('00' + date.getHours()).slice(-2) + ':' + ('00' + date.getMinutes()).slice(-2));
@@ -61,7 +61,7 @@
           labels: labelArray,
           datasets: [
             {
-              label: 'Fridge temperature in °C',
+              label: this.translate('home_chart_label'),
               data: dataArray,
               borderColor: '#3F51B5',
               backgroundColor: 'transparent',

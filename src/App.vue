@@ -28,6 +28,7 @@
       Footermobile,
     },
     created() {
+      this.$root.language = 'german';
       const FRIDGE_STATUS_URL = 'http://oslab1.hs-el.de:2080/fridge/status/';
 
       // fridge status request

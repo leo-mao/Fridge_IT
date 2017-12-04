@@ -6,12 +6,12 @@
       <i class="fa fa-beer"></i>
     </span>
       Slot {{ $route.params.id }}
-      <template slot="subtitle">Here you can see detailed informations about the slot {{ $route.params.id }}</template>
+      <template slot="subtitle"><label v-lang.slot_sub_hero></label> {{ $route.params.id }}</template>
     </hero>
 
     <div v-if="showError">
       <errormessage>
-        Error while loading informations about slot {{ $route.params.id }}. There is no slot with this id.
+        <label v-lang.slot_error_text></label>
         <router-link :to="{name: 'Slots'}">
           Return to slots
         </router-link>
@@ -21,19 +21,19 @@
       <div class="is-bold">
         <table class="table" width="100%">
           <tr>
-            <td>Current temperature:</td>
+            <td v-lang.slot_curr_temp></td>
             <td>{{ slotTemp }}°C</td>
           </tr>
           <tr>
-            <td>Row:</td>
+            <td v-lang.slot_row></td>
             <td>{{ slot.slotRow }}</td>
           </tr>
           <tr>
-            <td>Column:</td>
+            <td v-lang.slot_col></td>
             <td>{{ slot.slotColumn }}</td>
           </tr>
           <tr>
-            <td>Added:</td>
+            <td v-lang.slot_added></td>
             <td>{{ timeIn }}</td>
           </tr>
         </table>
@@ -78,7 +78,7 @@
           // iterate through the temperature array
           const labelArray = [];
           const dataArray = [];
-          for (let i = 0; i < bottleResponse.data.length; i += 1) {
+          for (let i = bottleResponse.data.length - 1; i >= 0; i -= 1) {
             const date = new Date(bottleResponse.data[i].timestamp);
             if (date.getHours() % 10 === 0) {
               labelArray.push(('00' + date.getHours()).slice(-2) + ':' + ('00' + date.getMinutes()).slice(-2));
@@ -91,7 +91,7 @@
             labels: labelArray,
             datasets: [
               {
-                label: 'Slot temperature in °C',
+                label: this.translate('slot_chart_label'),
                 data: dataArray,
                 borderColor: '#3F51B5',
                 backgroundColor: 'transparent',
