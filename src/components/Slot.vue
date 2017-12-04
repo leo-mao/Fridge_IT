@@ -22,7 +22,7 @@
         <table class="table" width="100%">
           <tr>
             <td>Current temperature:</td>
-            <td>8°C</td>
+            <td>{{ slotTemp }}°C</td>
           </tr>
           <tr>
             <td>Row:</td>
@@ -38,7 +38,12 @@
           </tr>
         </table>
       </div>
-      <linechart :chart-data="chartData" :width="500" :height="200"></linechart>
+      <div v-if="loaded">
+        <linechart :chart-data="chartData" :width="500" :height="200"></linechart>
+      </div>
+      <div v-else align="center">
+        Loading...
+      </div>
     </div>
   </div>
 </template>
@@ -77,7 +82,7 @@
             const date = new Date(bottleResponse.data[i].timestamp);
             if (date.getHours() % 10 === 0) {
               labelArray.push(('00' + date.getHours()).slice(-2) + ':' + ('00' + date.getMinutes()).slice(-2));
-              dataArray.push(bottleResponse.data[i].temperature);
+              dataArray.push(Math.round(bottleResponse.data[i].temperature * 100) / 100);
             }
           }
 
@@ -95,6 +100,10 @@
               },
             ],
           };
+
+          // add actual temperature to data
+          this.slotTemp = Math.round(dataArray[dataArray.length - 1] * 100) / 100;
+          this.loaded = true;
         })
           .catch(() => {
             this.showError = true;
@@ -107,14 +116,16 @@
     data() {
       return {
         slot: {
-          slotRow: -1,
-          slotColumn: -1,
+          slotRow: 'Loading...',
+          slotColumn: 'Loading...',
+          slotTemp: 'Loading...',
           currentBottle: {
             id: -1,
           },
         },
         chartData: null,
         showError: false,
+        loaded: false,
       };
     },
     computed: {
