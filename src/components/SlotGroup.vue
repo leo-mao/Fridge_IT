@@ -17,6 +17,9 @@
         ></SlotCanvas>
       </div>
     </hero>
+    <div style="display:none;">
+      <img id="lock" src="../../static/lock.png">
+    </div>
   </div>
 </template>
 
@@ -80,10 +83,7 @@
         }
       },
       reservedCheck(reservedBy, reservedCheck) {
-        if ((reservedBy === null) && (reservedCheck === null)) {
-          return false;
-        }
-        return true;
+        return !((reservedBy === null) && (reservedCheck === null));
       },
     },
   };
