@@ -96,13 +96,13 @@
             ],
           };
         })
+          .catch(() => {
+            this.showError = true;
+          });
+      })
         .catch(() => {
           this.showError = true;
         });
-      })
-      .catch(() => {
-        this.showError = true;
-      });
     },
     data() {
       return {
