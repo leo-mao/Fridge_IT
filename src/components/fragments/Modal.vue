@@ -6,7 +6,7 @@
         <p class="modal-card-title">
           <slot name="header"></slot>
         </p>
-        <router-link :to="{name: 'Home'}"  class="delete" aria-label="close"></router-link>
+        <router-link :to="{name: 'Home'}" class="delete" aria-label="close"></router-link>
       </header>
       <section class="modal-card-body">
         <slot></slot>

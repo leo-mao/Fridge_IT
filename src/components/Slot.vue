@@ -105,13 +105,13 @@
           this.slotTemp = Math.round(dataArray[dataArray.length - 1] * 100) / 100;
           this.loaded = true;
         })
+          .catch(() => {
+            this.showError = true;
+          });
+      })
         .catch(() => {
           this.showError = true;
         });
-      })
-      .catch(() => {
-        this.showError = true;
-      });
     },
     data() {
       return {

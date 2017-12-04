@@ -19,18 +19,18 @@
           <span class="icon"><i class="fa fa-home"></i></span>
           <label>Home</label>
         </router-link>
-        <router-link :to="{name: 'Slots'}"  class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
+        <router-link :to="{name: 'Slots'}" class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-beer"></i></span>
           Slots
         </router-link>
       </div>
 
       <div class="navbar-end">
-        <router-link :to="{name: 'Settings'}"  class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
+        <router-link :to="{name: 'Settings'}" class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-gear"></i></span>
           Settings
         </router-link>
-        <router-link :to="{name: 'Login'}"  class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
+        <router-link :to="{name: 'Login'}" class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-user"></i></span>
           Login
         </router-link>
