@@ -5,6 +5,13 @@
         <i class="fa fa-beer"></i>
       </span>
       Slots
+    </hero>
+    <div v-if="showError">
+      <errormessage>
+        <label v-lang.slots_error_text></label>
+      </errormessage>
+    </div>
+    <div v-else>
       <div id="slots" class="columns is-multiline is-mobile">
         <SlotCanvas
           v-for="(slot, index) in slots"
@@ -16,7 +23,7 @@
           v-bind:key="slot.id"
         ></SlotCanvas>
       </div>
-    </hero>
+    </div>
   </div>
 </template>
 
@@ -31,24 +38,27 @@
   import axios from 'axios';
   import Hero from './fragments/Hero';
   import SlotCanvas from './fragments/SlotCanvas';
+  import Errormessage from './fragments/Error-message';
 
   export default {
     components: {
       SlotCanvas,
       Hero,
+      Errormessage,
     },
     created() {
       const URL = 'http://oslab1.hs-el.de:2080/slot/';
       axios.get(URL).then((slotResponse) => {
         // assign the slot informations to the vue data
         this.slots = slotResponse.data;
-      }).catch((e) => {
-        console.log(e);
+      }).catch(() => {
+        this.showError = true;
       });
     },
     data() {
       return {
         slots: [],
+        showError: false,
       };
     },
     methods: {
