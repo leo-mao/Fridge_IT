@@ -49,11 +49,6 @@
 </template>
 
 <script>
-  /* eslint-disable no-new,new-parens,import/no-duplicates */
-  /* eslint-disable no-console */
-  /* eslint-disable prefer-template */
-  /* eslint-disable no-return-assign  */
-
   import axios from 'axios';
   import Hero from './fragments/Hero';
   import Linechart from './fragments/Linechart';
@@ -66,22 +61,23 @@
       Errormessage,
     },
     created() {
-      const SLOT_URL = 'http://oslab1.hs-el.de:2080/slot/' + this.$route.params.id + '/';
+      const SLOT_URL = `http://oslab1.hs-el.de:2080/slot/${this.$route.params.id}/`;
 
       // slot request
       axios.get(SLOT_URL).then((slotResponse) => {
         this.slot = slotResponse.data;
-        const BOTTLE_URL = 'http://oslab1.hs-el.de:2080/bottle/' + slotResponse.data.currentBottle.id + '/temperature/?start=-70&end=0';
+        const BOTTLE_URL = `http://oslab1.hs-el.de:2080/bottle/${slotResponse.data.currentBottle.id}/temperature/?start=-700000&end=0`;
 
         // bottle request
         axios.get(BOTTLE_URL).then((bottleResponse) => {
-          // iterate through the temperature array
           const labelArray = [];
           const dataArray = [];
           for (let i = bottleResponse.data.length - 1; i >= 0; i -= 1) {
             const date = new Date(bottleResponse.data[i].timestamp);
             if (date.getHours() % 10 === 0) {
-              labelArray.push(('00' + date.getHours()).slice(-2) + ':' + ('00' + date.getMinutes()).slice(-2));
+              const hours = (`00${date.getHours()}`).slice(-2);
+              const minutes = (`00${date.getMinutes()}`).slice(-2);
+              labelArray.push(`${hours}:${minutes}`);
               dataArray.push(Math.round(bottleResponse.data[i].temperature * 100) / 100);
             }
           }
@@ -131,7 +127,13 @@
     computed: {
       timeIn() {
         const date = new Date(this.slot.currentBottle.timeIn);
-        const time = ('00' + date.getDay()).slice(-2) + '.' + ('00' + date.getMonth()).slice(-2) + '.' + date.getFullYear() + ' - ' + ('00' + date.getHours()).slice(-2) + ':' + ('00' + date.getMinutes()).slice(-2) + ':' + ('00' + date.getSeconds()).slice(-2);
+        const day = (`00${date.getDay()}`).slice(-2);
+        const month = (`00${date.getMonth()}`).slice(-2);
+        const year = date.getFullYear();
+        const hours = (`00${date.getHours()}`).slice(-2);
+        const minutes = (`00${date.getMinutes()}`).slice(-2);
+        const seconds = (`00${date.getSeconds()}`).slice(-2);
+        const time = `${day}.${month}.${year} - ${hours}:${minutes}:${seconds}`;
         return time;
       },
     },

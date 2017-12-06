@@ -24,11 +24,6 @@
 </template>
 
 <script>
-  /* eslint-disable no-new,new-parens,import/no-duplicates */
-  /* eslint-disable no-console */
-  /* eslint-disable prefer-template */
-  /* eslint-disable no-return-assign  */
-
   import axios from 'axios';
   import Successmessage from './fragments/Success-message';
   import Hero from './fragments/Hero';
@@ -45,13 +40,14 @@
 
       // slot request
       axios.get(FRIDGE_URL).then((fridgeResponse) => {
-        // console.log(fridgeResponse.data);
         const labelArray = [];
         const dataArray = [];
         for (let i = fridgeResponse.data.length - 1; i >= 0; i -= 1) {
           const date = new Date(fridgeResponse.data[i].timestamp);
           if (date.getHours() % 10 === 0) {
-            labelArray.push(('00' + date.getHours()).slice(-2) + ':' + ('00' + date.getMinutes()).slice(-2));
+            const hours = (`00${date.getHours()}`).slice(-2);
+            const minutes = (`00${date.getMinutes()}`).slice(-2);
+            labelArray.push(`${hours}:${minutes}`);
             dataArray.push(Math.round(fridgeResponse.data[i].temperature * 100) / 100);
           }
         }
