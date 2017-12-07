@@ -5,40 +5,39 @@
       <span class="icon">
         <i class="fa fa-gear"></i>
       </span>
-      Settings
-      <template slot="subtitle">You can change the application settings here.</template>
+      <label v-lang.settings_hero></label>
+      <template slot="subtitle"><label v-lang.settings_sub_hero></label></template>
     </hero>
 
     <!-- settings form -->
-    <form>
-      <!-- language select -->
-      <h1 class="form-title">Change language</h1>
-      <inputfield>
-        <div class="select">
-          <select class="input select-option" title="language">
-            <option v-for="language in languages" :selected="language === currentLanguage">{{ language }}</option>
-          </select>
-        </div>
-        <span class="icon is-small is-left">
-          <i class="fa fa-language"></i>
-        </span>
-      </inputfield>
+    <!-- language select -->
+    <h1 class="form-title" v-lang.settings_change_lang></h1>
+    <inputfield>
+      <div class="select">
+        <select class="input select-option" title="language" v-model="currentLanguage" @change="submit">
+          <option v-lang.settings_lang_en value="en"></option>
+          <option v-lang.settings_lang_ger value="ger"></option>
+        </select>
+      </div>
+      <span class="icon is-small is-left">
+        <i class="fa fa-language"></i>
+      </span>
+    </inputfield>
 
-      <!-- change password -->
-      <h1 class="form-title">Change display name</h1>
+    <!-- change password 
+    <h1 class="form-title">Change display name</h1>
 
-      <!-- display name -->
-      <inputfield>
-        <template slot="title">Display name</template>
-        <input type="text" class="input" v-model="displayName">
-        <span class="icon is-left is-small">
-          <i class="fa fa-user"></i>
-        </span>
-      </inputfield>
+    <!-- display name 
+    <inputfield>
+      <template slot="title">Display name</template>
+      <input type="text" class="input" v-model="displayName">
+      <span class="icon is-left is-small">
+        <i class="fa fa-user"></i>
+      </span>
+    </inputfield>-->
 
-      <!-- save button -->
-      <button class="button" @click="">Save</button>
-    </form>
+    <!-- save button 
+    <button class="button" @click="submit()">Save</button>-->
   </div>
 </template>
 
@@ -53,10 +52,18 @@
     },
     data() {
       return {
-        languages: ['English', 'German'],
-        currentLanguage: 'English',
-        displayName: '',
+        currentLanguage: null,
+        // displayName: '',
       };
+    },
+    methods: {
+      submit() {
+        if (this.currentLanguage === 'en') {
+          this.language = 'english';
+        } else if (this.currentLanguage === 'ger') {
+          this.language = 'german';
+        }
+      },
     },
   };
 </script>

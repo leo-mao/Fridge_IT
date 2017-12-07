@@ -17,26 +17,26 @@
       <div class="navbar-start">
         <router-link :to="{name: 'Home'}" class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-home"></i></span>
-          <label>Home</label>
+          <label v-lang.navbar_home></label>
         </router-link>
         <router-link :to="{name: 'Slots'}" class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
           <span class="icon"><i class="fa fa-beer"></i></span>
           Slots
         </router-link>
+				<router-link :to="{name: 'Settings'}" class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
+          <span class="icon"><i class="fa fa-gear"></i></span>
+          <label v-lang.navbar_settings></label>
+        </router-link>
+        <!--<router-link :to="{name: 'Login'}" class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
+          <span class="icon"><i class="fa fa-user"></i></span>
+          Login
+        </router-link>-->
       </div>
 
       <div class="navbar-end">
-        <router-link :to="{name: 'Settings'}" class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
-          <span class="icon"><i class="fa fa-gear"></i></span>
-          Settings
-        </router-link>
-        <router-link :to="{name: 'Login'}" class="navbar-item" v-on:click.native="navbarMenuIsActive = false">
-          <span class="icon"><i class="fa fa-user"></i></span>
-          Login
-        </router-link>
         <span class="navbar-item is-hidden-mobile no-item">
           <i class="fa fa-plug" aria-hidden="true"></i>
-          <label>&nbsp;Fridge {{ fridgeStatus }}</label>
+          <label>&nbsp;<label v-lang.fridge></label> {{ fridgeStatus }}</label>
         </span>
         <span class="navbar-item is-hidden-mobile no-item">
           <i class="fa fa-thermometer-quarter" aria-hidden="true"></i>
