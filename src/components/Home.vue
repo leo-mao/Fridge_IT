@@ -36,7 +36,7 @@
       Linechart,
     },
     created() {
-      const FRIDGE_URL = 'http://oslab1.hs-el.de:2080/fridge/statistics/?start=-100&end=0';
+      const FRIDGE_URL = 'https://oslab1.hs-el.de:2443/fridge/statistics/?start=-100&end=0';
 
       // slot request
       axios.get(FRIDGE_URL).then((fridgeResponse) => {

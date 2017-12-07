@@ -28,7 +28,7 @@
       Footermobile,
     },
     created() {
-      const FRIDGE_STATUS_URL = 'http://oslab1.hs-el.de:2080/fridge/status/';
+      const FRIDGE_STATUS_URL = 'https://oslab1.hs-el.de:2443/fridge/status/';
 
       // fridge status request
       axios.get(FRIDGE_STATUS_URL).then((fridgeStatusResponse) => {
