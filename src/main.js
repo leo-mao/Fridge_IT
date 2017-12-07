@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import MultiLanguage from 'vue-multilanguage';
@@ -15,6 +14,7 @@ Vue.use(MultiLanguage, {
     home_hero: 'Home',
     home_sub_hero: 'Welcome to the Fridge-IT WebApp',
     home_chart_label: 'Fridge temperature in °C',
+    slots_error_text: 'Failed loading the informations.',
     settings_hero: 'Settings',
     settings_sub_hero: 'You can change the application settings here',
     settings_change_lang: 'Change language',
@@ -35,6 +35,7 @@ Vue.use(MultiLanguage, {
     home_hero: 'Startseite',
     home_sub_hero: 'Willkommen in der Fridge-IT WebApp',
     home_chart_label: 'Kühlschranktemperaturen in °C',
+    slots_error_text: 'Laden der Informationen fehlgeschlagen.',
     settings_hero: 'Einstellungen',
     settings_sub_hero: 'Hier können Sie die Anwendungeinstellungen ändern',
     settings_change_lang: 'Sprache ändern',
