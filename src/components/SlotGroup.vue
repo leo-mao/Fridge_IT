@@ -47,7 +47,7 @@
       Errormessage,
     },
     created() {
-      const URL = 'http://oslab1.hs-el.de:2080/slot/';
+      const URL = 'https://oslab1.hs-el.de:2443/slot/';
       axios.get(URL).then((slotResponse) => {
         // assign the slot informations to the vue data
         this.slots = slotResponse.data;

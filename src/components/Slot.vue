@@ -61,12 +61,12 @@
       Errormessage,
     },
     created() {
-      const SLOT_URL = `http://oslab1.hs-el.de:2080/slot/${this.$route.params.id}/`;
+      const SLOT_URL = `https://oslab1.hs-el.de:2443/slot/${this.$route.params.id}/`;
 
       // slot request
       axios.get(SLOT_URL).then((slotResponse) => {
         this.slot = slotResponse.data;
-        const BOTTLE_URL = `http://oslab1.hs-el.de:2080/bottle/${slotResponse.data.currentBottle.id}/temperature/?start=-700000&end=0`;
+        const BOTTLE_URL = `https://oslab1.hs-el.de:2443/bottle/${slotResponse.data.currentBottle.id}/temperature/?start=-700000&end=0`;
 
         // bottle request
         axios.get(BOTTLE_URL).then((bottleResponse) => {
