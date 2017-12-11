@@ -115,6 +115,7 @@
           slotRow: 'Loading...',
           slotColumn: 'Loading...',
           slotTemp: 'Loading...',
+          reservedBy: 'Loading',
           currentBottle: {
             id: -1,
           },
@@ -127,8 +128,8 @@
     computed: {
       timeIn() {
         const date = new Date(this.slot.currentBottle.timeIn);
-        const day = (`00${date.getDay()}`).slice(-2);
-        const month = (`00${date.getMonth()}`).slice(-2);
+        const day = (`00${date.getDate()}`).slice(-2);
+        const month = (`00${date.getMonth() + 1}`).slice(-2);
         const year = date.getFullYear();
         const hours = (`00${date.getHours()}`).slice(-2);
         const minutes = (`00${date.getMinutes()}`).slice(-2);
