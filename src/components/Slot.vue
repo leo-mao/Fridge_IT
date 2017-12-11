@@ -41,15 +41,15 @@
           </tr>
           <tr>
             <td v-lang.slot_reserved></td>
-            <td v-if="slot.reservedBy === null" v-lang.loading></td>
+            <td v-if="slot.currentBottle.reservedBy === ''" v-lang.loading></td>
             <td v-else>
               <div v-if="slot.reservedBy !== ''">
                 <div class="field has-addons">
                   <div class="control">
-                    <input type="text" class="input" v-model="reservedName" />
+                    <input type="text" class="input" @keyup.enter="reserve" v-model="reservedName" />
                   </div>
                   <div class="control">
-                    <button class="button is-material-blue">{{ this.translate('slot_reserve_button') }}</button>
+                    <button class="button is-material-blue" @click="reserve">{{ this.translate('slot_reserve_button') }}</button>
                   </div>
                 </div>
               </div>
@@ -134,9 +134,9 @@
           slotRow: null,
           slotColumn: null,
           slotTemp: null,
-          reservedBy: null,
           currentBottle: {
             id: -1,
+            reservedBy: '',
           },
         },
         chartData: null,
@@ -161,12 +161,11 @@
     methods: {
       reserve() {
         const RESERVE_URL = `https://oslab1.hs-el.de:3443/slot/${this.$route.params.id}/reserve/`;
-
+        console.log(RESERVE_URL);
         // slot request
         axios.post(RESERVE_URL, {
           userName: this.reservedName,
         });
-        this.created();
       },
     },
   };
