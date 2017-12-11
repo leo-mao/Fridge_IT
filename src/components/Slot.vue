@@ -22,15 +22,18 @@
         <table class="table" width="100%">
           <tr>
             <td v-lang.slot_curr_temp></td>
-            <td>{{ slotTemp }}°C</td>
+            <td v-if="slot.slotTemp === null" v-lang.loading></td>
+            <td v-else>{{ slotTemp }}°C</td>
           </tr>
           <tr>
             <td v-lang.slot_row></td>
-            <td>{{ slot.slotRow }}</td>
+            <td v-if="slot.slotRow === null" v-lang.loading></td>
+            <td v-else>{{ slot.slotRow }}</td>
           </tr>
           <tr>
             <td v-lang.slot_col></td>
-            <td>{{ slot.slotColumn }}</td>
+            <td v-if="slot.slotColumn === null" v-lang.loading></td>
+            <td v-else>{{ slot.slotColumn }}</td>
           </tr>
           <tr>
             <td v-lang.slot_added></td>
@@ -112,10 +115,10 @@
     data() {
       return {
         slot: {
-          slotRow: 'Loading...',
-          slotColumn: 'Loading...',
-          slotTemp: 'Loading...',
-          reservedBy: 'Loading',
+          slotRow: null,
+          slotColumn: null,
+          slotTemp: null,
+          reservedBy: null,
           currentBottle: {
             id: -1,
           },
