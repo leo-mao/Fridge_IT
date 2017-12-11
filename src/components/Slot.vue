@@ -22,7 +22,7 @@
         <table class="table" width="100%">
           <tr>
             <td v-lang.slot_curr_temp></td>
-            <td v-if="slot.slotTemp === null" v-lang.loading></td>
+            <td v-if="slotTemp === null" v-lang.loading></td>
             <td v-else>{{ slotTemp }}°C</td>
           </tr>
           <tr>
@@ -85,7 +85,7 @@
       // slot request
       axios.get(SLOT_URL).then((slotResponse) => {
         this.slot = slotResponse.data;
-        const BOTTLE_URL = `https://oslab1.hs-el.de:2443/bottle/${slotResponse.data.currentBottle.id}/temperature/?start=-700000&end=0`;
+        const BOTTLE_URL = `https://oslab1.hs-el.de:2443/bottle/${slotResponse.data.currentBottle.id}/temperature/?start=-8&end=0`;
 
         // bottle request
         axios.get(BOTTLE_URL).then((bottleResponse) => {
@@ -130,10 +130,10 @@
     },
     data() {
       return {
+        slotTemp: null,
         slot: {
           slotRow: null,
           slotColumn: null,
-          slotTemp: null,
           currentBottle: {
             id: -1,
             reservedBy: '',
@@ -160,7 +160,7 @@
     },
     methods: {
       reserve() {
-        const RESERVE_URL = `https://oslab1.hs-el.de:3443/slot/${this.$route.params.id}/reserve/`;
+        const RESERVE_URL = `https://oslab1.hs-el.de:2443/slot/${this.$route.params.id}/reserve/`;
         console.log(RESERVE_URL);
         // slot request
         axios.post(RESERVE_URL, {
