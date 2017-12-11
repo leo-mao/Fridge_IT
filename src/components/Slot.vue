@@ -39,6 +39,22 @@
             <td v-lang.slot_added></td>
             <td>{{ timeIn }}</td>
           </tr>
+          <tr>
+            <td v-lang.slot_reserved></td>
+            <td v-if="slot.reservedBy === null" v-lang.loading></td>
+            <td v-else>
+              <div v-if="slot.reservedBy !== ''">
+                <div class="field has-addons">
+                  <div class="control">
+                    <input type="text" class="input" v-model="reservedName" />
+                  </div>
+                  <div class="control">
+                    <button class="button is-material-blue">{{ this.translate('slot_reserve_button') }}</button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
         </table>
       </div>
       <div v-if="loaded">
@@ -126,6 +142,7 @@
         chartData: null,
         showError: false,
         loaded: false,
+        reservedName: '',
       };
     },
     computed: {
@@ -141,6 +158,17 @@
         return time;
       },
     },
+    methods: {
+      reserve() {
+        const RESERVE_URL = `https://oslab1.hs-el.de:3443/slot/${this.$route.params.id}/reserve/`;
+
+        // slot request
+        axios.post(RESERVE_URL, {
+          userName: this.reservedName,
+        });
+        this.created();
+      },
+    },
   };
 </script>
 
@@ -149,5 +177,14 @@
     font-weight: bolder;
     margin-left: 1rem;
     margin-right: 1rem;
+  }
+
+  .is-material-blue {
+    background-color: #3F51B5;
+  }
+
+  .is-material-blue:hover {
+    background-color: #3F51BF;
+    color: white;
   }
 </style>
