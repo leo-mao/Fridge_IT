@@ -4,7 +4,7 @@
       <span class="icon">
         <i class="fa fa-beer"></i>
       </span>
-      <span v-lang.slots></span>
+      Slots
     </hero>
     <div v-if="showError">
       <errormessage>
@@ -12,7 +12,7 @@
       </errormessage>
     </div>
     <div v-else>
-      <div id="slots" class="columns is-multiline is-mobile">
+      <div id="slots" class="columns is-multiline is-mobile" v-if="loaded">
         <SlotCanvas
           v-for="(slot, index) in slots"
           v-bind:slotID="slot.id"
@@ -22,6 +22,9 @@
                                           slot.currentBottle.reservedSince)"
           v-bind:key="slot.id"
         ></SlotCanvas>
+      </div>
+      <div v-else align="center">
+        {{ this.translate('loading') }}
       </div>
     </div>
   </div>
@@ -51,6 +54,7 @@
       axios.get(URL).then((slotResponse) => {
         // assign the slot informations to the vue data
         this.slots = slotResponse.data;
+        this.loaded = true;
       }).catch(() => {
         this.showError = true;
       });
@@ -58,6 +62,8 @@
     data() {
       return {
         slots: [],
+        showError: false,
+        loaded: false,
       };
     },
     methods: {
@@ -89,7 +95,10 @@
         }
       },
       reservedCheck(reservedBy, reservedCheck) {
-        return !((reservedBy === null) && (reservedCheck === null));
+        if ((reservedBy === null) && (reservedCheck === null)) {
+          return false;
+        }
+        return true;
       },
     },
   };

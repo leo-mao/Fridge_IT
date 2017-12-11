@@ -17,7 +17,7 @@
         <linechart :chart-data="chartData" :width="500" :height="200"></linechart>
       </div>
       <div v-else align="center">
-        Loading...
+        {{ this.translate('loading') }}
       </div>
     </div>
   </div>

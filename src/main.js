@@ -11,6 +11,7 @@ Vue.use(MultiLanguage, {
   default: 'en',
   english: {
     fridge: 'Fridge',
+    loading: 'Loading...',
     home_hero: 'Home',
     home_sub_hero: 'Welcome to the Fridge-IT WebApp',
     home_chart_label: 'Fridge temperature in °C',
@@ -33,6 +34,7 @@ Vue.use(MultiLanguage, {
   },
   german: {
     fridge: 'Kühlschrank',
+    loading: 'Lädt...',
     home_hero: 'Startseite',
     home_sub_hero: 'Willkommen in der Fridge-IT WebApp',
     home_chart_label: 'Kühlschranktemperaturen in °C',
