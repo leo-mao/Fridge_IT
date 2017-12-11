@@ -24,8 +24,6 @@
     },
     directives: {
       drawCanvas(canvasElement, binding) {
-        // eslint-disable-next-line
-        console.log('binding value:' + binding.value.isReserved);
         const size = canvasElement.width;
         const borderWidth = size * 0.1;
         const radius = (size / 2) - borderWidth;
