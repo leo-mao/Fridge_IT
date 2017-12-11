@@ -43,15 +43,23 @@
             <td v-lang.slot_reserved></td>
             <td v-if="slot.currentBottle.reservedBy === ''" v-lang.loading></td>
             <td v-else>
-              <div v-if="slot.reservedBy !== ''">
+              <div v-if="slot.currentBottle.reservedBy === null">
                 <div class="field has-addons">
                   <div class="control">
                     <input type="text" class="input" @keyup.enter="reserve" v-model="reservedName" />
                   </div>
                   <div class="control">
-                    <button class="button is-material-blue" @click="reserve">{{ this.translate('slot_reserve_button') }}</button>
+                    <button 
+                      class="button is-material-blue" 
+                      @click="reserve"
+                      :disabled="isDisabled">
+                      {{ this.translate('slot_reserve_button') }}
+                    </button>
                   </div>
                 </div>
+              </div>
+              <div v-else>
+                {{ slot.currentBottle.reservedBy }}
               </div>
             </td>
           </tr>
@@ -157,15 +165,29 @@
         const time = `${day}.${month}.${year} - ${hours}:${minutes}:${seconds}`;
         return time;
       },
+      isDisabled() {
+        let disabled = true;
+        if (this.reservedName !== '') {
+          disabled = false;
+        }
+        return disabled;
+      },
     },
     methods: {
       reserve() {
-        const RESERVE_URL = `https://oslab1.hs-el.de:2443/slot/${this.$route.params.id}/reserve/`;
-        console.log(RESERVE_URL);
-        // slot request
-        axios.post(RESERVE_URL, {
-          userName: this.reservedName,
-        });
+        if (this.reservedName !== '') {
+          const RESERVE_URL = `https://oslab1.hs-el.de:2443/slot/${this.$route.params.id}/reserve/`;
+          // slot request
+          axios.post(RESERVE_URL, {
+            userName: this.reservedName,
+          })
+          .then(() => {
+            const SLOT_URL = `https://oslab1.hs-el.de:2443/slot/${this.$route.params.id}/`;
+            axios.get(SLOT_URL).then((slotResponse) => {
+              this.slot = slotResponse.data;
+            });
+          });
+        }
       },
     },
   };
