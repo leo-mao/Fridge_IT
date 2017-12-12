@@ -101,12 +101,10 @@
           const dataArray = [];
           for (let i = bottleResponse.data.length - 1; i >= 0; i -= 1) {
             const date = new Date(bottleResponse.data[i].timestamp);
-            if (date.getHours() % 10 === 0) {
-              const hours = (`00${date.getHours()}`).slice(-2);
-              const minutes = (`00${date.getMinutes()}`).slice(-2);
-              labelArray.push(`${hours}:${minutes}`);
-              dataArray.push(Math.round(bottleResponse.data[i].temperature * 100) / 100);
-            }
+            const hours = (`00${date.getHours()}`).slice(-2);
+            const minutes = (`00${date.getMinutes()}`).slice(-2);
+            labelArray.push(`${hours}:${minutes}`);
+            dataArray.push(Math.round(bottleResponse.data[i].temperature * 100) / 100);
           }
 
           // fill the chart data
