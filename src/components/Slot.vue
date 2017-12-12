@@ -208,4 +208,9 @@
     background-color: #3F51BF;
     color: white;
   }
+
+  .is-material-blue:disabled {
+    background-color: white;
+    color: black;
+  }
 </style>
