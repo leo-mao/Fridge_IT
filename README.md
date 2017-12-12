@@ -1,6 +1,6 @@
-# fridge_it_webapp
+# Fridge-IT Web Application
 
-> The WebApp of the FrideIT-Project.
+> The Web-App of the Fridge-IT-Project.
 
 ## Build Setup
 
@@ -16,15 +16,12 @@ npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Used Technologies
+ - [Bulma](http://bulma.io/) CSS Framework
+ - [Vuejs](https://vuejs.org/) JavaScript Framework
+ - [Vue-Router](https://router.vuejs.org/en/) Client-side Routing Framework
+ - [Chart.js](http://www.chartjs.org/) Beautiful charts with JavaScript and Canvas
+ - [Vue-multi-lang](https://github.com/leonardovilarinho/vue-multilanguage) Multi-Language Support for Vue.js
+ - [Axios](https://github.com/axios/axios) Promise based HTTP client for the browser and node.js
