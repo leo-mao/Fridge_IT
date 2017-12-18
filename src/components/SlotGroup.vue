@@ -26,6 +26,9 @@
         {{ this.translate('loading') }}
       </div>
     </div>
+    <div style="display:none;">
+      <img id="lock" src="../../static/lock.png">
+    </div>
   </div>
 </template>
 
