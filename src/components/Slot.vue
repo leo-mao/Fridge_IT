@@ -12,10 +12,14 @@
     <div v-if="showError">
       <errormessage>
         <label v-lang.slot_error_text></label>
-        <router-link :to="{name: 'Slots'}">
-          Return to slots
-        </router-link>
+        <router-link :to="{name: 'Slots'}" v-lang.slot_return></router-link>
       </errormessage>
+    </div>
+    <div v-else-if="showWarning">
+      <warningmessage>
+        <label v-lang.slot_warning_text></label>
+        <router-link :to="{name: 'Slots'}" v-lang.slot_return></router-link>
+      </warningmessage>
     </div>
     <div v-else>
       <div class="is-bold">
@@ -80,12 +84,14 @@
   import Hero from './fragments/Hero';
   import Linechart from './fragments/Linechart';
   import Errormessage from './fragments/Error-message';
+  import Warningmessage from './fragments/Warning-message';
 
   export default {
     components: {
       Hero,
       Linechart,
       Errormessage,
+      Warningmessage,
     },
     created() {
       const SLOT_URL = `https://oslab1.hs-el.de:2443/slot/${this.$route.params.id}/`;
@@ -93,42 +99,48 @@
       // slot request
       axios.get(SLOT_URL).then((slotResponse) => {
         this.slot = slotResponse.data;
-        const BOTTLE_URL = `https://oslab1.hs-el.de:2443/bottle/${slotResponse.data.currentBottle.id}/temperature/?start=-8&end=0`;
 
-        // bottle request
-        axios.get(BOTTLE_URL).then((bottleResponse) => {
-          const labelArray = [];
-          const dataArray = [];
-          for (let i = bottleResponse.data.length - 1; i >= 0; i -= 1) {
-            const date = new Date(bottleResponse.data[i].timestamp);
-            const hours = (`00${date.getHours()}`).slice(-2);
-            const minutes = (`00${date.getMinutes()}`).slice(-2);
-            labelArray.push(`${hours}:${minutes}`);
-            dataArray.push(Math.round(bottleResponse.data[i].temperature * 100) / 100);
-          }
+        // check, if there is a bottle in the slot
+        if (slotResponse.data.currentBottle !== null) {
+          const BOTTLE_URL = `https://oslab1.hs-el.de:2443/bottle/${slotResponse.data.currentBottle.id}/temperature/?start=-8&end=0`;
 
-          // fill the chart data
-          this.chartData = {
-            labels: labelArray,
-            datasets: [
-              {
-                label: this.translate('slot_chart_label'),
-                data: dataArray,
-                borderColor: '#3F51B5',
-                backgroundColor: 'transparent',
-                borderWidth: 3,
-                borderJoinStyle: 'miter',
-              },
-            ],
-          };
+          // bottle request
+          axios.get(BOTTLE_URL).then((bottleResponse) => {
+            const labelArray = [];
+            const dataArray = [];
+            for (let i = bottleResponse.data.length - 1; i >= 0; i -= 1) {
+              const date = new Date(bottleResponse.data[i].timestamp);
+              const hours = (`00${date.getHours()}`).slice(-2);
+              const minutes = (`00${date.getMinutes()}`).slice(-2);
+              labelArray.push(`${hours}:${minutes}`);
+              dataArray.push(Math.round(bottleResponse.data[i].temperature * 100) / 100);
+            }
 
-          // add actual temperature to data
-          this.slotTemp = Math.round(dataArray[dataArray.length - 1] * 100) / 100;
-          this.loaded = true;
-        })
+            // fill the chart data
+            this.chartData = {
+              labels: labelArray,
+              datasets: [
+                {
+                  label: this.translate('slot_chart_label'),
+                  data: dataArray,
+                  borderColor: '#3F51B5',
+                  backgroundColor: 'transparent',
+                  borderWidth: 3,
+                  borderJoinStyle: 'miter',
+                },
+              ],
+            };
+
+            // add actual temperature to data
+            this.slotTemp = Math.round(dataArray[dataArray.length - 1] * 100) / 100;
+            this.loaded = true;
+          })
           .catch(() => {
             this.showError = true;
           });
+        } else {
+          this.showWarning = true;
+        }
       })
         .catch(() => {
           this.showError = true;
@@ -147,6 +159,7 @@
         },
         chartData: null,
         showError: false,
+        showWarning: false,
         loaded: false,
         reservedName: '',
       };
