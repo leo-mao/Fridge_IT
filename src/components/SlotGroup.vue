@@ -18,8 +18,7 @@
           v-bind:slotID="slot.id"
           v-bind:color="resolveColor(slot.status).color"
           v-bind:colorBorder="resolveColor(slot.status).colorBorder"
-          v-bind:isReserved="reservedCheck(slot.currentBottle.reservedBy,
-                                          slot.currentBottle.reservedSince)"
+          v-bind:isReserved="reservedCheck(slot.currentBottle)"
           v-bind:key="slot.id"
         ></SlotCanvas>
       </div>
@@ -59,6 +58,16 @@
         this.showError = true;
       });
     },
+    updated() {
+      const URL = 'https://oslab1.hs-el.de:2443/slot/';
+      axios.get(URL).then((slotResponse) => {
+        // assign the slot informations to the vue data
+        this.slots = slotResponse.data;
+        this.loaded = true;
+      }).catch(() => {
+        this.showError = true;
+      });
+    },
     data() {
       return {
         slots: [],
@@ -69,7 +78,7 @@
     methods: {
       resolveColor(status) {
         const colorDisabled = '#a6a6a6';
-        const colorEmpty = 'b9b9b9';
+        const colorEmpty = '#b9b9b9';
         const colorEmptyBorder = '#878787';
         const colorVeryWarm = '#ff7b6a';
         const colorVeryWarmBorder = '#f13f32';
@@ -94,8 +103,11 @@
             return { color: colorDisabled, colorBorder: colorDisabled };
         }
       },
-      reservedCheck(reservedBy, reservedCheck) {
-        if ((reservedBy === null) && (reservedCheck === null)) {
+      reservedCheck(currentBottle) {
+        if (currentBottle === null) {
+          return false;
+        }
+        if ((currentBottle.reservedBy === null) && (currentBottle.reservedSince === null)) {
           return false;
         }
         return true;
