@@ -42,14 +42,12 @@
       axios.get(FRIDGE_URL).then((fridgeResponse) => {
         const labelArray = [];
         const dataArray = [];
-        for (let i = fridgeResponse.data.length - 1; i >= 0; i -= 1) {
+        for (let i = 0; i < fridgeResponse.data.length; i += 1) {
           const date = new Date(fridgeResponse.data[i].timestamp);
-          if (date.getHours() % 10 === 0) {
-            const hours = (`00${date.getHours()}`).slice(-2);
-            const minutes = (`00${date.getMinutes()}`).slice(-2);
-            labelArray.push(`${hours}:${minutes}`);
-            dataArray.push(Math.round(fridgeResponse.data[i].temperature * 100) / 100);
-          }
+          const hours = (`00${date.getHours()}`).slice(-2);
+          const minutes = (`00${date.getMinutes()}`).slice(-2);
+          labelArray.push(`${hours}:${minutes}`);
+          dataArray.push(Math.round(fridgeResponse.data[i].temperature * 100) / 100);
         }
 
         // fill the chart data
